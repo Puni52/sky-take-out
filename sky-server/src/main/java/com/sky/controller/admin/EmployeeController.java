@@ -72,6 +72,12 @@ public class EmployeeController {
         return Result.success();
     }
 
+
+
+    /*
+    *
+    * 新增员工
+    * */
     @PostMapping
     @ApiOperation("新增员工")
     public Result save(@RequestBody EmployeeDTO employeeDTO){
@@ -93,6 +99,11 @@ public class EmployeeController {
     }
 
 
+
+    /*
+    * 启用禁用员工账号
+    *
+    * */
     @PostMapping("/status/{status}")
     @ApiOperation("启用禁用员工账号")
     public Result startOrStop(@PathVariable Integer status,Long id ){
@@ -102,4 +113,16 @@ public class EmployeeController {
         return Result.success();
     }
 
+
+    /*
+    * 根据id查询员工信息
+    *
+    * */
+
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询员工信息")
+    public Result<Employee>getById(@PathVariable Long id){
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
 }

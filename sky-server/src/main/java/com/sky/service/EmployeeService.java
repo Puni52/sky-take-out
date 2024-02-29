@@ -32,4 +32,12 @@ public interface EmployeeService {
     * */
 
     void startOrStop(Integer status, Long id);
+
+
+
+    /*
+    * 根据id查询员工信息
+    *
+    * */
+    Employee getById(Long id);
 }
