@@ -3,6 +3,7 @@ package com.sky.mapper;
 
 import com.sky.annotation.AutoFill;
 import com.sky.entity.Setmeal;
+import com.sky.entity.SetmealDish;
 import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,4 +25,10 @@ public interface SetmealDishMapper {
     void update(Setmeal setmeal);
 
 
+
+    /*
+    *
+    * 向套餐中菜品表中插入n条数据
+    * */
+    void insertBatch(List<SetmealDish> setmealDishes);
 }
