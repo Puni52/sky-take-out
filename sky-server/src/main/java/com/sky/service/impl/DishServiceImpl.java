@@ -88,6 +88,11 @@ public class DishServiceImpl implements DishService {
     }
 
 
+
+    /*
+     *
+     * 菜品批量删除
+     * */
     public void deleteBatch(List<Long> ids){
         //判断当前菜品能否删除——是否存在起售中的菜品？
         for(Long id : ids){
@@ -123,5 +128,25 @@ public class DishServiceImpl implements DishService {
 
     }
 
+
+
+    /*
+     *
+     * 根据id查询菜品和对应的口味数据
+     * */
+    public DishVO getByIdWithFlavor(Long id){
+        //根据id查询菜品数据
+        Dish dish = dishMapper.getByID(id);
+
+        //根据菜品id查询口味数据
+        List<DishFlavor> dishFlavors= dishFlavorMapper.getByDishId(id);
+
+        //将查询到的数据封装到VO
+        DishVO dishVO =new DishVO();
+        BeanUtils.copyProperties(dish,dishVO);
+        dishVO.setFlavors(dishFlavors);
+
+        return dishVO;
+    }
 
 }
