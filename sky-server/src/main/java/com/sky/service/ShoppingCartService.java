@@ -34,7 +34,10 @@ public interface ShoppingCartService {
     void cleanShoppingCart();
 
 
-
-
-
+    /*
+     *
+     *
+     * 在购物车中减少商品数量
+     * */
+    void subShoppingCart(ShoppingCartDTO shoppingCartDTO);
 }
