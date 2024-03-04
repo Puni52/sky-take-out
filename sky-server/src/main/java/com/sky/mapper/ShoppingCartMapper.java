@@ -47,13 +47,27 @@ public interface ShoppingCartMapper {
 
 
 
-    /**
-     * 根据id删除购物车数据
-     * @param id
-     */
-    @Delete("delete from shopping_cart where id = #{id}")
-    void deleteById(Long id);
+    /*
+    *
+    *
+    * 根据菜品id获取购物车中该菜品的数量
+    * */
+    @Select("select number from shopping_cart where dish_id=#{dishId}")
+    int getNumberByDishId(Long dishId);
+
+    /*
+    *
+    * 将购物车中该菜品数量减一
+    * */
+    @Update("update shopping_cart set number =#{number}-1")
+    void subNumberByDishId(Long dishId, Integer number);
 
 
-
+    /*
+    *
+    *
+    * 在购物车中删除该菜品
+    * */
+    @Delete("delete from shopping_cart where dish_id=#{dishId}")
+    void deleteByDishId(Long dishId);
 }

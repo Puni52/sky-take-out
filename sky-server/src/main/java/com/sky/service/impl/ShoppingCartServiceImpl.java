@@ -117,27 +117,25 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      *
      * 在购物车中减少商品数量
      * */
-    public void subShoppingCart(ShoppingCartDTO shoppingCartDTO) {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        BeanUtils.copyProperties(shoppingCartDTO,shoppingCart);
-        //设置查询条件，查询当前登录用户的购物车数据
-        shoppingCart.setUserId(BaseContext.getCurrentId());
+    public void subShoppingCart(ShoppingCartDTO shoppingCartDTO){
 
-        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        //获取当前菜品id
+        Long dishId=shoppingCartDTO.getDishId();
 
-        if(list != null && list.size() > 0){
-            shoppingCart = list.get(0);
+        //获取当前菜品的数量
+        int number=shoppingCartMapper.getNumberByDishId(dishId);
+        if(number>1) {
+            //如果当前数量大于1,数量减1
+            shoppingCartMapper.subNumberByDishId(dishId,number);
 
-            Integer number = shoppingCart.getNumber();
-            if(number == 1){
-                //当前商品在购物车中的份数为1，直接删除当前记录
-                shoppingCartMapper.deleteById(shoppingCart.getId());
-            }else {
-                //当前商品在购物车中的份数不为1，修改份数即可
-                shoppingCart.setNumber(shoppingCart.getNumber() - 1);
-                shoppingCartMapper.updateNumberById(shoppingCart);
-            }
+        } else {
+            //如果当前数量等于1,删除该条数据
+            shoppingCartMapper.deleteByDishId(dishId);
+
         }
+
+
+
     }
 
 }
