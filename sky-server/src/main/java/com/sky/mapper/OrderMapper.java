@@ -6,9 +6,11 @@ import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -65,19 +67,20 @@ public interface OrderMapper {
     @Select("select * from orders where status=#{status} and order_time<#{orderTime}")
     List<Orders>getByStatusAndOrderTimeLT(Integer status, LocalDateTime orderTime);
 
+/*
+*
+* 支付，直接改订单状态
+* */
+    @Update("update orders set status = 5 where user_id=#{userId} and number=#{str}")
+    void pay(Long userId, String str);
 
 
 
-
-
-
-
-
-
-
-
-
-
+    /**
+     * 根据动态条件统计营业额
+     * @param map
+     */
+    Double sumByMap(Map map);
 
 
 
